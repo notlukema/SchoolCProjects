@@ -130,8 +130,8 @@ namespace Engine
 		//
 
 		clfe::Matrix4x4f getCameraMatrix(float width, float height) const;
-		clfe::Matrix4x4f getFrustumMatrix(float width, float height) const;
-		clfe::Matrix4x4f getViewMatrix() const;
+		clfe::Matrix4x4f getViewMatrix(float width, float height) const;
+		clfe::Matrix4x4f getWorldMatrix() const;
 
 		inline clfe::Vector3f getPosition() const
 		{
@@ -172,13 +172,17 @@ namespace Engine
 
 		CharTexture* target;
 		CharCamera* camera;
-		clfe::Matrix4x4f cameraMatrix;
 		float aspect;
 		
 		using depth_t = float;
 
 		depth_t* depthBuffer;
 		uint32_t size;
+
+		clfe::Matrix4x4f worldMatrix;
+		clfe::Matrix4x4f objectMatrix;
+		clfe::Matrix4x4f transformMatrix;
+		clfe::Matrix4x4f viewMatrix;
 
 		CharRasterizer(CharTexture* target, CharCamera* camera, float aspect);
 		~CharRasterizer();
@@ -194,9 +198,28 @@ namespace Engine
 			target = newTarget;
 		}
 
+		inline void calcTransformMatrix()
+		{
+			transformMatrix = objectMatrix * worldMatrix;
+		}
+
 		inline void catchCamera()
 		{
-			cameraMatrix = camera->getCameraMatrix(static_cast<float>(target->getWidth()), static_cast<float>(target->getHeight()) * aspect);
+			viewMatrix = camera->getViewMatrix(static_cast<float>(target->getWidth()), static_cast<float>(target->getHeight()) * aspect);
+			worldMatrix = camera->getWorldMatrix();
+			calcTransformMatrix();
+		}
+
+		inline void setObjectMatrix(const clfe::Matrix4x4f& matrix)
+		{
+			this->objectMatrix = matrix;
+			calcTransformMatrix();
+		}
+
+		inline void clearObjectMatrix()
+		{
+			objectMatrix = clfe::Matrix4x4f();
+			calcTransformMatrix();
 		}
 
 		inline float getAspect() const
@@ -257,7 +280,8 @@ namespace Engine
 
 		// 3d (too lazy to do textures plus they probably don't look good anyways)
 
-		clfe::Vector3f transformPoint(const clfe::Vector3f& point) const;
+		clfe::Vector4f transformPoint(const clfe::Vector3f& point) const;
+		clfe::Vector3f toScreen(const clfe::Vector4f& point) const;
 
 		void drawPoint(const clfe::Vector3f& point, char c);
 
@@ -349,6 +373,16 @@ namespace Engine
 		inline CharRasterizer* r()
 		{
 			return rasterizer;
+		}
+
+		inline void setObjectMatrix(const clfe::Matrix4x4f& matrix)
+		{
+			rasterizer->setObjectMatrix(matrix);
+		}
+
+		inline void clearObjectMatrix()
+		{
+			rasterizer->clearObjectMatrix();
 		}
 
 		inline void drawPoint(uint32_t x, uint32_t y, char c)

@@ -10,16 +10,16 @@ namespace Engine
 
 	clfe::Matrix4x4f CharCamera::getCameraMatrix(float width, float height) const
 	{
-		return getViewMatrix() * getFrustumMatrix(width, height);
+		return getWorldMatrix() * getViewMatrix(width, height);
 	}
 
-	clfe::Matrix4x4f CharCamera::getFrustumMatrix(float width, float height) const
+	clfe::Matrix4x4f CharCamera::getViewMatrix(float width, float height) const
 	{
 		// World to -1, 1 coords
 		return clfe::mfov(fov, width / height, near, far);
 	}
 
-	clfe::Matrix4x4f CharCamera::getViewMatrix() const
+	clfe::Matrix4x4f CharCamera::getWorldMatrix() const
 	{
 		clfe::Matrix4x4f viewMatrix = clfe::Matrix4x4f();
 		// Apply rotation (assuming rotation is in degrees)

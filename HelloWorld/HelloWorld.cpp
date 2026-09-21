@@ -18,7 +18,7 @@ int main()
     std::cout << "Hello World!\n";
 	*/
 
-	ConsoleEngine::InitEngine(51, 26, 2, ' ');
+	ConsoleEngine::InitEngine(101, 51, 2, ' ');
 	ConsoleEngine* engine = ConsoleEngine::GetInstance();
 	engine->setPrintLogsEnabled(true);
 
@@ -42,21 +42,37 @@ int main()
 		dt = std::chrono::duration<double>(now - point).count();
 		point = now;
 
-		rot += 5.0f * dt;
+		rot += 1.0f * dt;
 
 		ConsoleEngine::ClearLogs();
 
-		engine->setRotation(clfe::Vector3f(0, 0, (float)rot));
+		//engine->setRotation(clfe::Vector3f(0, 0, (float)rot));
+		//engine->setPosition(clfe::Vector3f(0, 0, std::sinf(rot * 1.5) * 20 + 20));
+		engine->setPosition(clfe::Vector3f(0, 0, 30));
+
+		engine->drawLine(-10, -10, 10, -10, -10, -10, '*');
 
 		engine->clear();
 		engine->beginRender();
 
-		engine->drawPoint(clfe::Vector3f(0, 0, -50), 'X');
+		engine->setObjectMatrix(clfe::mrotateY(rot));
 
-		engine->drawLine(-10, 10, -30, 10, 10, -30, '#');
-		engine->drawLine(10, 10, -30, 10, -10, -30, '#');
-		engine->drawLine(10, -10, -30, -10, -10, -30, '#');
-		engine->drawLine(-10, -10, -30, -10, 10, -30, '#');
+		engine->drawPoint(clfe::Vector3f(0, 0, 0), 'X');
+
+		engine->drawLine(-10, 10, -10, 10, 10, -10, '#');
+		engine->drawLine(10, 10, -10, 10, -10, -10, '#');
+		engine->drawLine(10, -10, -10, -10, -10, -10, '#');
+		engine->drawLine(-10, -10, -10, -10, 10, -10, '#');
+
+		engine->drawLine(-10, 10, 10, 10, 10, 10, 'O');
+		engine->drawLine(10, 10, 10, 10, -10, 10, 'O');
+		engine->drawLine(10, -10, 10, -10, -10, 10, 'O');
+		engine->drawLine(-10, -10, 10, -10, 10, 10, 'O');
+
+		engine->drawLine(-10, -10, 10, -10, -10, -10, '*');
+		engine->drawLine(10, -10, 10, 10, -10, -10, '*');
+		engine->drawLine(10, 10, 10, 10, 10, -10, '*');
+		engine->drawLine(-10, 10, 10, -10, 10, -10, '*');
 
 		engine->renderToScreen();
 	}
