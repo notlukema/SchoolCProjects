@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\CharCamera.cpp" />
     <ClCompile Include="engine\CharRasterizer.cpp" />
     <ClCompile Include="engine\ConsoleEngine.cpp" />
     <ClCompile Include="engine\ConsoleEngineStatic.cpp" />
@@ -146,6 +147,35 @@
     <ClCompile Include="HelloWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="clm\impl\Matrix2x2_i.h" />
+    <ClInclude Include="clm\impl\Matrix3x3_i.h" />
+    <ClInclude Include="clm\impl\Matrix4x4_i.h" />
+    <ClInclude Include="clm\impl\MatrixOp_i.h" />
+    <ClInclude Include="clm\impl\MatrixUtils_i.h" />
+    <ClInclude Include="clm\impl\Matrix_i.h" />
+    <ClInclude Include="clm\impl\Vector2_i.h" />
+    <ClInclude Include="clm\impl\Vector3_i.h" />
+    <ClInclude Include="clm\impl\Vector4_i.h" />
+    <ClInclude Include="clm\impl\VectorMatrixCommon_i.h" />
+    <ClInclude Include="clm\impl\VectorMatrixOp_i.h" />
+    <ClInclude Include="clm\impl\VectorMatrixUtils_i.h" />
+    <ClInclude Include="clm\impl\VectorOp_i.h" />
+    <ClInclude Include="clm\impl\VectorUtils_i.h" />
+    <ClInclude Include="clm\impl\Vector_i.h" />
+    <ClInclude Include="clm\Math.h" />
+    <ClInclude Include="clm\MathConst.h" />
+    <ClInclude Include="clm\Mathd.h" />
+    <ClInclude Include="clm\Mathf.h" />
+    <ClInclude Include="clm\Matrix.h" />
+    <ClInclude Include="clm\Matrix2x2.h" />
+    <ClInclude Include="clm\Matrix3x3.h" />
+    <ClInclude Include="clm\Matrix4x4.h" />
+    <ClInclude Include="clm\MatrixImpl.h" />
+    <ClInclude Include="clm\Vector.h" />
+    <ClInclude Include="clm\Vector2.h" />
+    <ClInclude Include="clm\Vector3.h" />
+    <ClInclude Include="clm\Vector4.h" />
+    <ClInclude Include="clm\VectorImpl.h" />
     <ClInclude Include="engine\ConsoleEngine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

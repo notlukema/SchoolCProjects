@@ -18,10 +18,11 @@ int main()
     std::cout << "Hello World!\n";
 	*/
 
-	ConsoleEngine::InitEngine(100, 20, ' ');
+	ConsoleEngine::InitEngine(51, 26, 2, ' ');
 	ConsoleEngine* engine = ConsoleEngine::GetInstance();
+	engine->setPrintLogsEnabled(true);
 
-	double fpsCap = 120;
+	double fpsCap = 60;
 
 	double rot = 0;
 
@@ -41,12 +42,23 @@ int main()
 		dt = std::chrono::duration<double>(now - point).count();
 		point = now;
 
-		rot += 5 * dt;
+		rot += 5.0f * dt;
+
+		ConsoleEngine::ClearLogs();
+
+		engine->setRotation(clfe::Vector3f(0, 0, (float)rot));
 
 		engine->clear();
-		engine->drawLine(-50, -50, 99, 19, 'O');
-		engine->drawLine(10 + (int)rot, 0, 10, 50, '*');
-		engine->render();
+		engine->beginRender();
+
+		engine->drawPoint(clfe::Vector3f(0, 0, -50), 'X');
+
+		engine->drawLine(-10, 10, -30, 10, 10, -30, '#');
+		engine->drawLine(10, 10, -30, 10, -10, -30, '#');
+		engine->drawLine(10, -10, -30, -10, -10, -30, '#');
+		engine->drawLine(-10, -10, -30, -10, 10, -30, '#');
+
+		engine->renderToScreen();
 	}
 
 	return 0;

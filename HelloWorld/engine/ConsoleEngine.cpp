@@ -9,10 +9,11 @@
 namespace Engine
 {
 
-	ConsoleEngine::ConsoleEngine(const uint32_t width = 100, const uint32_t height = 20, char clearChar = ' ') : width(width), height(height), clearChar(clearChar), screenRefresh(true)
+	ConsoleEngine::ConsoleEngine(const uint32_t width, const uint32_t height, float aspect, char clearChar) : width(width), height(height), clearChar(clearChar), screenRefresh(true), printLogs(false)
 	{
 		framebuffer = new CharTexture(width, height);
-		rasterizer = new CharRasterizer(framebuffer);
+		camera = new CharCamera();
+		rasterizer = new CharRasterizer(framebuffer, camera, aspect);
 		clear();
 	}
 
@@ -32,7 +33,12 @@ namespace Engine
 		screenRefresh = true;
 	}
 
-	void ConsoleEngine::render()
+	void ConsoleEngine::beginRender()
+	{
+		rasterizer->catchCamera();
+	}
+
+	void ConsoleEngine::renderToScreen()
 	{
 		std::string str;
 		str.reserve(height * (width + 1));
@@ -48,21 +54,35 @@ namespace Engine
 			str.push_back('\n');
 		}
 
-		/* Older style for clearing the console
+		if (screenRefresh)
+		{
 #ifdef _WIN32
-		std::system("cls");
+			std::system("cls");
 #elif
-		std::system("clear");
+			std::system("clear");
 #endif
-		*/
-		
-		// "redraw"
+		}
+
+		// Weird inconsistencies in screen refreshes...
+
 		std::cout << (screenRefresh ?
 			"\033[H\033[2J" : // Reset cursor position and clear screen
 			"\033[H"          // Only reset cursor position to overwrite
+			//"\033[2J\033[1;1H" :
+			//"\033[1;1H"
 			) << std::flush << str;
 
 		screenRefresh = false;
+
+		// Print logs if enabled
+		if (printLogs)
+		{
+			std::cout << std::endl;
+			for (const std::string& log : logs)
+			{
+				std::cout << log << std::endl;
+			}
+		}
 	}
 
 }
