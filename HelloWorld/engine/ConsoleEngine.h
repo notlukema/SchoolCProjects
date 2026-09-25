@@ -269,7 +269,6 @@ namespace Engine
 		}
 
 		void drawPoint(uint32_t x, uint32_t y, depth_t z, char c);
-		void drawPointR(const clfe::Vector3f& point, char c);
 
 		void drawLine(int x1, int y1, int x2, int y2, char c);
 
@@ -290,12 +289,32 @@ namespace Engine
 			drawPoint(clfe::Vector3f(x, y, z), c);
 		}
 
+		// Draws with 2d coordinates
+		void drawPointR(const clfe::Vector3f& point, char c);
+
 		void drawLine(const clfe::Vector3f& p1, const clfe::Vector3f& p2, char c);
 
 		inline void drawLine(float x1, float y1, float z1, float x2, float y2, float z2, char c)
 		{
 			drawLine(clfe::Vector3f(x1, y1, z1), clfe::Vector3f(x2, y2, z2), c);
 		}
+
+		void drawTriangle(const clfe::Vector3f& p1, const clfe::Vector3f& p2, const clfe::Vector3f& p3, char c);
+		
+		inline void drawTriangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, char c)
+		{
+			drawTriangle(clfe::Vector3f(x1, y1, z1), clfe::Vector3f(x2, y2, z3), clfe::Vector3f(x3, y3, z3), c);
+		}
+
+	protected:
+		void drawTri(clfe::Vector4f p1, clfe::Vector4f p2, clfe::Vector4f p3, char c);
+
+		// Draws with 2d coordinates
+		void drawTriR(const clfe::Vector3f& p1, const clfe::Vector3f& p2, const clfe::Vector3f& p3, char c);
+
+		clfe::Vector4f clipLineZ(const clfe::Vector4f& point, const clfe::Vector4f& clip, float z);
+
+	public:
 
 	};
 
@@ -430,6 +449,16 @@ namespace Engine
 		inline void drawLine(float x1, float y1, float z1, float x2, float y2, float z2, char c)
 		{
 			rasterizer->drawLine(x1, y1, z1, x2, y2, z2, c);
+		}
+
+		inline void drawTriangle(const clfe::Vector3f& p1, const clfe::Vector3f& p2, const clfe::Vector3f& p3, char c)
+		{
+			rasterizer->drawTriangle(p1, p2, p3, c);
+		}
+
+		inline void drawTriangle(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, char c)
+		{
+			rasterizer->drawTriangle(x1, y1, z1, x2, y2, z2, x3, y3, z3, c);
 		}
 
 	public:

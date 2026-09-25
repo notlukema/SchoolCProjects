@@ -63,25 +63,20 @@ namespace Engine
 #endif
 		}
 
-		// Weird inconsistencies in screen refreshes...
-
-		std::cout << (screenRefresh ?
-			"\033[H\033[2J" : // Reset cursor position and clear screen
-			"\033[H"          // Only reset cursor position to overwrite
-			//"\033[2J\033[1;1H" :
-			//"\033[1;1H"
-			) << std::flush << str;
-
 		screenRefresh = false;
+
+		std::cout << "\033[H\033[2J" << str;
 
 		// Print logs if enabled
 		if (printLogs)
 		{
-			std::cout << std::endl;
+			std::cout << "Logs: (" << logs.size() << ")\n";
+			std::cout << "\n";
 			for (const std::string& log : logs)
 			{
-				std::cout << log << std::endl;
+				std::cout << log << "\n";
 			}
+			std::cout;
 		}
 	}
 

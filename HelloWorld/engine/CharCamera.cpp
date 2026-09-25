@@ -22,12 +22,12 @@ namespace Engine
 	clfe::Matrix4x4f CharCamera::getWorldMatrix() const
 	{
 		clfe::Matrix4x4f viewMatrix = clfe::Matrix4x4f();
-		// Apply rotation (assuming rotation is in degrees)
-		viewMatrix = viewMatrix * clfe::mrotateZ(-rotation.z());
-		viewMatrix = viewMatrix * clfe::mrotateX(-rotation.x());
-		viewMatrix = viewMatrix * clfe::mrotateY(-rotation.y());
 		// Apply translation
 		viewMatrix = viewMatrix * clfe::mtranslate(-position.x(), -position.y(), -position.z());
+		// Apply rotation
+		viewMatrix = viewMatrix * clfe::mrotateY(rotation.y());
+		viewMatrix = viewMatrix * clfe::mrotateX(rotation.x());
+		viewMatrix = viewMatrix * clfe::mrotateZ(-rotation.z());
 		return viewMatrix;
 	}
 
