@@ -16,7 +16,7 @@ struct Guy
 	char symbol;
 	int val;
 
-	Guy(char symbol, bool (*cond1)(int a, int b, int c), bool (*cond2)(int a, int b, int c)) : symbol(symbol), cond1(cond1), cond2(cond2)
+	Guy(char symbol, bool (*cond1)(int a, int b, int c), bool (*cond2)(int a, int b, int c)) : symbol(symbol), cond1(cond1), cond2(cond2), val(0)
 	{}
 
 	char getSymbol() const
@@ -52,6 +52,7 @@ struct Guy
 		int a = fetchVal('A', arr);
 		int b = fetchVal('B', arr);
 		int c = fetchVal('C', arr);
+		std::cout << a << ", " << b << ", " << c << "\n";
 
 		return (cond1(a, b, c) ? 1 : 0) + (cond2(a, b, c) ? 1 : 0);
 	}
@@ -59,8 +60,7 @@ struct Guy
 
 bool tryArrangement(Guy** arr)
 {
-	// I previously didn't consider the chance that two guys might eat the same but whatever
-
+	std::cout << "New arrangment: ";
 	Guy* sortedArr[] = { arr[0], arr[1], arr[2] };
 
 	bool sorted = false;
@@ -69,28 +69,39 @@ bool tryArrangement(Guy** arr)
 		sorted = true;
 		for (int i = 1; i < 3; i++)
 		{
-			int a = sortedArr[i - 1]->getVal();
-			int b = sortedArr[i]->getVal();
-			if (b < a)
+			Guy* a = sortedArr[i - 1];
+			Guy* b = sortedArr[i];
+			if (b->getVal() < a->getVal())
 			{
-				Guy* temp = sortedArr[i];
-				sortedArr[i] = sortedArr[i - 1];
-				sortedArr[i - 1] = temp;
+				sortedArr[i] = a;
+				sortedArr[i - 1] = b;
 				sorted = false;
 			}
 		}
 	}
 
-	// Test if the combination fits the description
 	for (int i = 0; i < 3; i++)
 	{
-		int truths = 2 - i;
+		std::cout << "[" << sortedArr[i]->getSymbol() << ", " << sortedArr[i]->getVal() << "], ";
+	}
+	std::cout << "\n";
+
+	// Test if the combination fits the description
+	int truths = 2;
+	for (int i = 0; i < 3; i++)
+	{
 		int trueCount = sortedArr[i]->verify(arr);
 		if (trueCount != truths)
 		{
 			return false;
 		}
-
+		if (i < 2)
+		{
+			if (sortedArr[i]->getVal() < sortedArr[i + 1]->getVal())
+			{
+				truths--;
+			}
+		}
 	}
 	return true;
 }
@@ -127,13 +138,12 @@ void printArrangement(Guy** arr)
 		sorted = true;
 		for (int i = 1; i < 3; i++)
 		{
-			int a = sortedArr[i - 1]->getVal();
-			int b = sortedArr[i]->getVal();
-			if (b < a)
+			Guy* a = sortedArr[i - 1];
+			Guy* b = sortedArr[i];
+			if (b->getVal() < a->getVal())
 			{
-				Guy* temp = sortedArr[i];
-				sortedArr[i] = sortedArr[i - 1];
-				sortedArr[i - 1] = temp;
+				sortedArr[i] = a;
+				sortedArr[i - 1] = b;
 				sorted = false;
 			}
 		}
