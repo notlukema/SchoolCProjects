@@ -35,6 +35,7 @@ int main()
 	// If student C was telling the lie, we would find that both student C and student B sent the gift, which would be impossible.
 	// As a result, it is only possible if student B was telling the lie and that student C had sent the gift.
 	
+	// Print
 	std::cout << 'C';
 	
 	return 0;
