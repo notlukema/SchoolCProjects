@@ -94,7 +94,7 @@ bool checkSpecial(int i, int n)
 	// Impossible case by technicality
 	return false;
 	
-	
+    
 	// General equation for testing if all digits added togethor matches n
 	/*
 	// Calculate the digit count first using log10

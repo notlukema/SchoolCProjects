@@ -26,6 +26,8 @@
 
 int main()
 {
+    // NOTE: The original assignment wanted me to define a pre-declared function, so this is just an optimization of the original assignment
+	
 	int n;
 	std::cin >> n;
 	if (n < 1 || n > 54)
@@ -34,9 +36,6 @@ int main()
 			"This is an error because the instructions specified that the range of n would be within [1, 54]";
 		return 1;
 	}
-	
-	// NOTE: The original assignment wanted me to define a pre-declared function, so this is just an optimization of the original assignment
-	
 	
 	// To be able to print numbers from least to greatest, always start counting from 0 and from left to right
 	
