@@ -35,8 +35,41 @@ int main()
 	// If student C was telling the lie, we would find that both student C and student B sent the gift, which would be impossible.
 	// As a result, it is only possible if student B was telling the lie and that student C had sent the gift.
 	
-	// Print
-	std::cout << 'C';
+	// The answer
+	//std::cout << 'C';
+	
+	// In code terms:
+	
+	// Because this is a relatively lightweight problem, we can test every possibility without much stress
+	// Number equivalents:
+	// A = 0
+	// B = 1
+	// C = 2
+	// D = 3
+	
+	// Used for printing later
+	char names[4] = { 'A', 'B', 'C', 'D' };
+	
+	// Here, i stands for the student that sent the gift
+	for (int i = 0; i < 4; i++)
+	{
+		// We test each statement
+		bool st_a = i != 0; // A didn't send the gift
+		bool st_b = i == 1; // B sent the gift
+		bool st_c = i != 1; // B didn't send the gift
+		bool st_d = i == 2; // C sent the gift
+		
+		// Add togethor the number of true statements
+		int st_true = st_a + st_b + st_c + st_d;
+		
+		// Based on the instructions, one student told a lie, so the number of true statements must be 3
+		if (st_true == 3)
+		{
+			// Print
+			// There should technically only be one correct combination here
+			std::cout << names[i];
+		}
+	}
 	
 	return 0;
 }
