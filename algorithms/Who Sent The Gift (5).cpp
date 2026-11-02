@@ -38,6 +38,7 @@ int main()
 	// The answer
 	//std::cout << 'C';
 	
+	
 	// In code terms:
 	
 	// Because this is a relatively lightweight problem, we can test every possibility without much stress

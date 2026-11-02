@@ -22,6 +22,8 @@ E厂的代表猜：D厂会获第1名。
 */
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 int main()
 {
@@ -50,7 +52,53 @@ int main()
 	// Final rankings from #1 to #5: C, B, D, E, A
 	// Print as: 5 2 1 3 4
 	
-	std::cout << "5 2 1 3 4";
+	//std::cout << "5 2 1 3 4";
+	
+	
+	// Code implementation:
+	
+	// Once again, we are achieving this by testing all possible combinations
+	// Specifically, we will be using std::next_permutation to cycle through all possibilities (permutations)
+	
+	// We are using vector for its conformity with other std components (mainly the begin() and end() functions)
+	std::vector<int> rankings = {1, 2, 3, 4, 5};
+	// A ranking = rankings[0]
+	// B ranking = rankings[1]
+	// C ranking = rankings[2]
+	// D ranking = rankings[3]
+	// E ranking = rankings[4]
+	
+	// No need to sort here since we entered the first combination pre-sorted so that every permutation is caught
+	//std::sort(rankings.begin(), rankings.end());
+	
+	// Check each possibility using std::next_permutation()
+	do
+	{
+		// Filter explicitly blocked cases
+		if (rankings[4] == 2 || rankings[4] == 3)
+		{
+			continue;
+		}
+		
+		// Check each guess along with whether its validity matches its ranking
+		if (((rankings[0] < 3) == (rankings[4] == 1)) &&
+			((rankings[1] < 3) == (rankings[1] == 2)) &&
+			((rankings[2] < 3) == (rankings[0] == 5)) &&
+			((rankings[3] < 3) == (rankings[2] != 1)) &&
+			((rankings[4] < 3) == (rankings[3] == 1)))
+		{
+			// If the rankings are correct, print
+			std::cout << rankings[0] << " " << rankings[1] << " " << rankings[2]
+				<< " " << rankings[3] << " " << rankings[4];
+			
+			// Exit program
+			return 0;
+		}
+	}
+	while (std::next_permutation(rankings.begin(), rankings.end()));
+	
+	// No solution (impossible case)
+	std::cout << "No solution";
 	
 	return 0;
 }
