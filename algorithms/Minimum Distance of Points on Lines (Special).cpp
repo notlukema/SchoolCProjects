@@ -142,8 +142,8 @@ int main()
 	std::cout << std::fixed << std::setprecision(2) << dis;
 	
 	// Cleanup despite the program ending
-	delete parr;
-	delete qarr;
+	delete[] parr;
+	delete[] qarr;
 	
 	return 0;
 }

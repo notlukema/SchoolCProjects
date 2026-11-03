@@ -21,6 +21,7 @@
 本题目为填补程序题，只需填补所需的函数即可。
 */
 
+// Given code
 #include <iostream>
 #include <cmath> // The c++ version of math.h
 
@@ -40,6 +41,8 @@ int main() {
 
 bool checkSpecial(int i, int n)
 {
+	// New code
+	
 	// Initial checks
 	if (i < 100000)
 	{

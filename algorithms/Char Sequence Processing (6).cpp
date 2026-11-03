@@ -62,7 +62,7 @@ using namespace std;
 
 void count_chars(const char a[], int *p_letter, int *p_digit, int *p_other)
 {
-	// Finally some pointers :)
+	// New code
 	
 	// Here, we rely on the fact that the alphabet and number sequences are in order and continuous
 	// This means we won't have to do any number shenanigans
@@ -90,6 +90,8 @@ void count_chars(const char a[], int *p_letter, int *p_digit, int *p_other)
 
 void process_chars(char a[])
 {
+	// New code
+	
 	// Get length of string and loop
 	int len = strlen(a);
 	for (int i = 0; i < len; i++)
@@ -116,6 +118,7 @@ void process_chars(char a[])
 	}
 }
 
+// Given code
 int main()
 {
 	char s[100];

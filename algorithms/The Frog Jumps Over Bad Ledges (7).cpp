@@ -97,11 +97,11 @@ int main()
 	// One final multiply by the final consecutive steps to n
 	combos *= fibonacci(consecutive_steps);
 	
-	// Print combos
+	// Print combos (possible pathway count)
 	std::cout << combos;
 	
 	// Cleanup
-	delete steps;
+	delete[] steps;
 	
 	return 0;
 }

@@ -46,6 +46,8 @@ using namespace std;
 
 int count_valley(const int a[], int n)
 {
+	// New code
+	
 	// We need at least 3 values to have the possibility of forming a trough
 	if (n < 3)
 	{
@@ -67,6 +69,7 @@ int count_valley(const int a[], int n)
 	return count;
 }
 
+// Given code
 int main()
 {
 	int n;

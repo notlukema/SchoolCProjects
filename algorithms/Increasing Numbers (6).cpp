@@ -48,7 +48,8 @@ using namespace std;
 
 int check_increasing(int a[], int n)
 {
-	// This is the custom code part
+	// New code
+	
 	// It's funny the program uses a fixed-size array
 	
 	// n provides the size of the input
@@ -72,6 +73,7 @@ int check_increasing(int a[], int n)
 	return 0;
 }
 
+// Given code
 int main()
 {
 	int n;

@@ -35,7 +35,7 @@
 
 // Array for marking multiples
 const int MAX = 10000000;
-unsigned char mark[MAX]; // Unsigned char is equal to uint8_t except without the header cstdint
+unsigned char mark[MAX]; // Unsigned char is equal to uint8_t except without needing the header cstdint
 
 int main()
 {
@@ -76,7 +76,7 @@ int main()
 }
 
 
-/* I tried to hit the optimized version but the overlapping mutliples that overlap again defeated me :(
+/* I tried to make an optimized version but the overlapping mutliples that overlap again and again defeated me :(
 // Also, I miscounted 10^7 as 10^6
 
 // Prime numbers up to the theoretical highest number (since the sqrt of n has a maximum of 1000)
