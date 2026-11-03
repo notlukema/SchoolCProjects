@@ -46,8 +46,7 @@ using namespace std;
 
 int count_valley(const int a[], int n)
 {
-	// New code
-	
+	// ------------------------------ New Code ------------------------------
 	// We need at least 3 values to have the possibility of forming a trough
 	if (n < 3)
 	{
@@ -67,9 +66,9 @@ int count_valley(const int a[], int n)
 	}
 	
 	return count;
+	// ----------------------------------------------------------------------
 }
 
-// Given code
 int main()
 {
 	int n;
@@ -77,7 +76,6 @@ int main()
 	int *a = new int[n];
 	for(int i = 0; i < n; i ++) cin >> a[i];
 	
-	// 调用函数返回波谷个数
 	cout << count_valley(a, n) << endl;
 	
 	delete[] a;

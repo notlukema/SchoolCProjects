@@ -23,7 +23,6 @@
 
 // Given code
 #include <iostream>
-#include <cmath> // The c++ version of math.h
 
 using namespace std;
 bool checkSpecial(int i, int n);
@@ -41,8 +40,7 @@ int main() {
 
 bool checkSpecial(int i, int n)
 {
-	// New code
-	
+	// ------------------------------ New Code ------------------------------
 	// Initial checks
 	if (i < 100000)
 	{
@@ -105,7 +103,7 @@ bool checkSpecial(int i, int n)
 	int sum = 0;
 	int div = 1;
 	for (int j = 0; j < digitCount; j++)
-{
+
 	// Divide, truncate, then mod for the individual digit
 	int digit = (i / div) % 10;
 	sum += digit;
@@ -114,4 +112,5 @@ bool checkSpecial(int i, int n)
 	// Compare
 	return sum == n;
 	*/
+	// ----------------------------------------------------------------------
 }

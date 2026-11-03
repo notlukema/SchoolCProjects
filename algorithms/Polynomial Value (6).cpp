@@ -55,8 +55,7 @@ using namespace std;
 
 double Eval_Polynomial(const double a[], int n, double x)
 {
-	// New code
-	
+	// ------------------------------ New Code ------------------------------
 	// Polynomial total
 	double sum = 0.0;
 	
@@ -70,9 +69,9 @@ double Eval_Polynomial(const double a[], int n, double x)
 	}
 	
 	return sum;
+	// ----------------------------------------------------------------------
 }
 
-// Given code
 int main()
 {
 	double x;
@@ -82,7 +81,6 @@ int main()
 	cin >> n;
 	for(int i = 0; i < n + 1; i ++) cin >> a[i];
 	
-	// 求多项式在 x 处的值
 	double res = Eval_Polynomial(a, n, x);
 	cout << fixed << setprecision(3) << res << endl;
 	
