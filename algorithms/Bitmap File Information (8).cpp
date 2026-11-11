@@ -92,7 +92,7 @@ struct bit_pointer // Compress two numbers into one
 	{}
 };
 
-static uint8_t bit_mask[8] = // Pre-calculate the masks needed for how many bits
+static byte_t bit_mask[8] = // Pre-calculate the masks needed for how many bits
 {
 	1,
 	3,
@@ -167,30 +167,35 @@ T read_bits(std::ifstream& input, bit_pointer& p, uint64_t count)
 }
 
 // Bit more complicated than just increasing the pointer numbers
-// We also need to make sure we are incrementing the file reading progress
 void skip_bits(std::ifstream& input, bit_pointer& p, uint64_t count)
 {
-	// Loop until no bits to skip
-	while (count > 0)
+	// New bit position based on current bit progress
+	count += p.bit;
+	uint64_t read_bytes = count / 8;
+	
+	if (p.bit > 0) // Skip one less bit since it would have already been read
 	{
-		if (p.bit == 0) // Read bytes to progress file
+		read_bytes--;
+	}
+	
+	// New starting bit
+	p.bit = count % 8;
+	
+	// Increment file reading progress and check if file is all read
+	input.ignore(read_bytes);
+	if (input.eof())
+	{
+		p.read_all = true;
+		return;
+	}
+	
+	// Read the next byte if the bit doesn't start from 0
+	if (p.bit > 0)
+	{
+		if (!input.read(reinterpret_cast<char*>(&p.last_byte), 1)) // Read all bytes?
 		{
-			if (!input.read(reinterpret_cast<char*>(&p.last_byte), 1)) // Read all bytes?
-			{
-				p.read_all = true;
-				break;
-			}
+			p.read_all = true;
 		}
-		uint8_t bits_left = 8 - p.bit; // How many bits to read to advance to next byte
-		if (count < bits_left) // We do not need to read the next byte
-		{
-			p.bit += count;
-			break; // Same as count = 0
-		}
-		
-		// Decrement and advance
-		count -= bits_left;
-		p.bit = 0;
 	}
 }
 
